@@ -6,6 +6,8 @@ const typeDefs = gql`
   type Query {
     bitcoin: Bitcoin
     trendingMovies: [Movie]!
+    foobars: [Foobar]
+    users: [User]
     launches(
       """
       The number of results to show. Must be >= 1. Default = 20
@@ -86,6 +88,10 @@ const typeDefs = gql`
     backdrop_path: String
     overview: String
     media_type: String
+  }
+
+  type Foobar {
+    foobar: String
   }
 
   enum PatchSize {

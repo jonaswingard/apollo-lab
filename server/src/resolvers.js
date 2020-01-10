@@ -10,6 +10,9 @@ module.exports = {
       const getAllTrendingMovies = await dataSources.mediaAPI.getAllTrendingMovies();
       return getAllTrendingMovies;
     },
+    foobars: async (_, __, { dataSources }) =>
+      dataSources.userAPI.getAllFoobars(),
+    users: async (_, __, { dataSources }) => dataSources.userAPI.getAllUsers(),
     launches: async (_, { pageSize = 20, after }, { dataSources }) => {
       const allLaunches = await dataSources.launchAPI.getAllLaunches();
       // we want these in reverse chronological order
