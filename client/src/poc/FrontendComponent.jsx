@@ -1,29 +1,5 @@
-import React, { useReducer } from 'react';
-
-function globalReducer(state, action) {
-  console.log({ state, action });
-
-  switch (action.type) {
-    case 'field': {
-      return {
-        ...state,
-        [action.fieldName]: action.payload
-      };
-    }
-
-    case 'submit': {
-      return {
-        ...state,
-        titles: [...state.titles, { title: state.title, tag: state.tag }],
-        title: '',
-        tag: ''
-      };
-    }
-
-    default:
-      return state;
-  }
-}
+import React, { useReducer, useEffect } from 'react';
+import { globalReducer } from './reducer';
 
 const initialState = {
   tag: '',
@@ -37,6 +13,11 @@ const initialState = {
 
 const FrontendComponent = () => {
   const [state, dispatch] = useReducer(globalReducer, initialState);
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
   const { tag, title, titles } = state;
 
   const handleChange = e => {
@@ -62,6 +43,7 @@ const FrontendComponent = () => {
           dispatch({ type: 'submit' });
         }}
         style={{ marginTop: '4rem' }}
+        onReset={() => dispatch({ type: 'reset' })}
       >
         {/* {error && <p className="error">{error}</p>} */}
         <div>
@@ -82,7 +64,7 @@ const FrontendComponent = () => {
         </div>
         <div>
           <button>submit</button>
-          <button>clear</button>
+          <button type="reset">clear</button>
         </div>
       </form>
     </div>
