@@ -10,7 +10,9 @@ export const types = {
    TRIGGER_ACTION: 'TRIGGER_ACTION',
    DIFFERENT_ACTION: 'DIFFERENT_ACTION',
    ADD_ITEM: 'ADD_ITEM',
-   LOAD_ITEMS: 'LOAD_ITEMS'
+   DELETE_ITEM: 'DELETE_ITEM',
+   LOAD_ITEMS: 'LOAD_ITEMS',
+   CLEAR_ITEMS: 'CLEAR_ITEMS'
 };
 
 export const reducer = (state = initialState, action) => {
@@ -37,10 +39,20 @@ export const reducer = (state = initialState, action) => {
             ...state,
             items: [...state.items, action.payload]
          };
+      case types.DELETE_ITEM:
+         return {
+            ...state,
+            items: [...state.items.filter(item => item.id !== action.payload)]
+         };
       case types.LOAD_ITEMS:
          return {
             ...state,
             items: action.payload
+         };
+      case types.CLEAR_ITEMS:
+         return {
+            ...state,
+            items: []
          };
 
       default:

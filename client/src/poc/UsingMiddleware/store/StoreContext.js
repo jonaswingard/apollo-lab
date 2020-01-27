@@ -1,18 +1,14 @@
-import React, { createContext, useReducer, useMemo } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { reducer, initialState } from './reducers';
 import { useActions } from './actions';
-import { applyMiddleware } from './middleware';
+import { UseMiddleware } from './UseMiddleware';
 
 const StoreContext = createContext(initialState);
 
 const StoreProvider = ({ children }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
-   const enhancedDispatch = applyMiddleware(state, dispatch);
+   const enhancedDispatch = UseMiddleware(state, dispatch);
    const actions = useActions(state, enhancedDispatch);
-
-   useMemo(() => {
-      actions.loadItems();
-   }, []);
 
    return (
       <StoreContext.Provider value={{ state, enhancedDispatch, actions }}>

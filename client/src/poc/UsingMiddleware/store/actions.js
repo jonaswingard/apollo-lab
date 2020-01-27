@@ -4,5 +4,7 @@ export const useActions = (_state, dispatch) => ({
    triggerAction: data =>
       dispatch({ type: types.TRIGGER_ACTION, payload: data }),
    addItem: data => dispatch({ type: types.ADD_ITEM, payload: data }),
-   loadItems: data => dispatch({ type: types.LOAD_ITEMS, payload: data })
+   deleteItem: id => dispatch({ type: types.DELETE_ITEM, payload: id }),
+   loadItems: data => dispatch({ type: types.LOAD_ITEMS, payload: data }),
+   clearItems: () => dispatch({ type: types.CLEAR_ITEMS })
 });
