@@ -24,6 +24,13 @@ export function globalReducer(state, action) {
       };
     }
 
+    case 'LOAD_SUCCESS': {
+      return {
+        ...state,
+        titles: action.payload
+      };
+    }
+
     default:
       return state;
   }

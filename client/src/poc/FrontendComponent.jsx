@@ -15,8 +15,9 @@ const FrontendComponent = () => {
   const [state, dispatch] = useReducer(globalReducer, initialState);
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
+    const items = loadItems();
+    dispatch({ type: 'LOAD_SUCCESS', payload: items });
+  }, []);
 
   const { tag, title, titles } = state;
 
