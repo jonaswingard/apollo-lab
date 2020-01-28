@@ -16,7 +16,7 @@ const saveItems = items => {
    }
 };
 
-export const UseMiddleware = (state, dispatch) => {
+export const useMiddleware = (state, dispatch) => {
    useMemo(() => {
       dispatch({ type: types.LOAD_ITEMS, payload: loadItems() });
    }, [dispatch]);
@@ -24,9 +24,11 @@ export const UseMiddleware = (state, dispatch) => {
    const actionRef = useRef();
    useMemo(() => {
       const action = actionRef.current || {};
+
       if (
          action.type === types.ADD_ITEM ||
          action.type === types.DELETE_ITEM ||
+         action.type === types.EDIT_ITEM ||
          action.type === types.CLEAR_ITEMS
       ) {
          saveItems(state.items);
@@ -35,6 +37,7 @@ export const UseMiddleware = (state, dispatch) => {
 
    return action => {
       actionRef.current = action;
+
       dispatch(action);
    };
 };

@@ -1,13 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 import { reducer, initialState } from './reducers';
 import { useActions } from './actions';
-import { UseMiddleware } from './UseMiddleware';
+import { useMiddleware } from './useMiddleware';
 
 const StoreContext = createContext(initialState);
 
 const StoreProvider = ({ children }) => {
    const [state, dispatch] = useReducer(reducer, initialState);
-   const enhancedDispatch = UseMiddleware(state, dispatch);
+   const enhancedDispatch = useMiddleware(state, dispatch);
    const actions = useActions(state, enhancedDispatch);
 
    return (

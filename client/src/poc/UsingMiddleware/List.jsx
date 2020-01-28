@@ -6,7 +6,8 @@ const Item = ({ item = '' }) => {
 
    return (
       <div>
-         {item.value}
+         {item.title}|{item.tag}
+         <button onClick={() => actions.selectItem(item.id)}>edit</button>
          <button onClick={() => actions.deleteItem(item.id)}>delete</button>
       </div>
    );
@@ -14,7 +15,6 @@ const Item = ({ item = '' }) => {
 
 const List = () => {
    const { state } = useContext(StoreContext);
-
    const items = state.items || [];
 
    return (
