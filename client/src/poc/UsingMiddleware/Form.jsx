@@ -26,18 +26,19 @@ const Form = () => {
       <form
          onSubmit={e => {
             e.preventDefault();
-
             const { title, tag } = state.selectedItem;
             if (title || tag) {
                actions.editItem({
                   ...state.selectedItem,
-                  title: value.title,
-                  tag: value.tag
+                  ...value
+                  // title: value.title,
+                  // tag: value.tag
                });
             } else {
                actions.addItem({
-                  title: value.title,
-                  tag: value.tag,
+                  ...value,
+                  // title: value.title,
+                  // tag: value.tag,
                   id: uniqid()
                });
             }

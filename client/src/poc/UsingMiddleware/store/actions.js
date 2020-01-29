@@ -1,4 +1,4 @@
-import { types } from './reducers';
+import types from './types';
 
 export const useActions = (_state, dispatch) => ({
    triggerAction: data =>

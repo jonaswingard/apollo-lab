@@ -1,5 +1,5 @@
 import { useMemo, useRef } from 'react';
-import { types } from './reducers';
+import types from './types';
 
 const SETTINGS = {
    LOCAL_STORAGE_KEY: 'items'
@@ -37,7 +37,6 @@ export const useMiddleware = (state, dispatch) => {
 
    return action => {
       actionRef.current = action;
-
       dispatch(action);
    };
 };
