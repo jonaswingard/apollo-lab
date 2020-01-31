@@ -11,33 +11,33 @@ export const initialState = {
 export const reducer = (state = initialState, action) => {
    return match(action.type)
       .equals(types.ADD_ITEM)
-      .then({ ...state, items: [...state.items, action.payload] })
+      .then(() => ({ ...state, items: [...state.items, action.payload] }))
       .equals(types.EDIT_ITEM)
-      .then({
+      .then(() => ({
          ...state,
          selectedItem: {},
          items: [
-            state.items.map(item =>
+            ...state.items.map(item =>
                item.id === action.payload.id ? action.payload : item
             )
          ]
-      })
+      }))
       .equals(types.DELETE_ITEM)
-      .then({
+      .then(() => ({
          ...state,
-         items: [state.items.filter(item => item.id !== action.payload)]
-      })
+         items: [...state.items.filter(item => item.id !== action.payload)]
+      }))
       .equals(types.SELECT_ITEM)
-      .then({
+      .then(() => ({
          ...state,
          selectedItem: {
             ...(state.items.find(item => item.id === action.payload) || {})
          }
-      })
+      }))
       .equals(types.LOAD_ITEMS)
-      .then({ ...state, items: action.payload })
+      .then(() => ({ ...state, items: action.payload }))
       .equals(types.CLEAR_ITEMS)
-      .then({ ...state, items: [] })
+      .then(() => ({ ...state, items: [] }))
       .else(state);
 
    // switch (action.type) {

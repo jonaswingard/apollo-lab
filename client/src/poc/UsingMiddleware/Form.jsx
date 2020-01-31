@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { StoreContext } from './store/StoreContext';
 import uniqid from 'uniqid';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +8,13 @@ import Grid from '@material-ui/core/Grid';
 const Form = () => {
    const { actions, state } = useContext(StoreContext);
    const [value, setValue] = useState({ title: '', tag: '' });
+   const firstInput = useRef();
+
+   const focusFirstInput = () => {
+      const input = firstInput.current.querySelector('input');
+      input.focus();
+      input.select();
+   };
 
    const handleChange = e =>
       setValue({
@@ -19,6 +26,11 @@ const Form = () => {
       const { title, tag } = state.selectedItem;
       if (title || tag) {
          setValue({ title, tag });
+
+         // TODO - this shouuld be handled in a better way
+         setTimeout(() => {
+            focusFirstInput();
+         });
       }
    }, [state.selectedItem]);
 
@@ -31,19 +43,16 @@ const Form = () => {
                actions.editItem({
                   ...state.selectedItem,
                   ...value
-                  // title: value.title,
-                  // tag: value.tag
                });
             } else {
                actions.addItem({
                   ...value,
-                  // title: value.title,
-                  // tag: value.tag,
                   id: uniqid()
                });
             }
 
             setValue({ title: '', tag: '' });
+            focusFirstInput();
          }}
       >
          <Grid container spacing={3} justify="center">
@@ -55,6 +64,7 @@ const Form = () => {
                   onChange={handleChange}
                   autoComplete="off"
                   fullWidth
+                  ref={firstInput}
                />
             </Grid>
             <Grid item xs={3}>
