@@ -4,6 +4,7 @@ import uniqid from 'uniqid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import TagPicker from './TagPicker';
 
 const Form = () => {
    const { actions, state } = useContext(StoreContext);
@@ -16,11 +17,33 @@ const Form = () => {
       input.select();
    };
 
-   const handleChange = e =>
+   const handleChange = e => {
       setValue({
          ...value,
          [e.currentTarget.name]: e.currentTarget.value
       });
+   };
+
+   const handleSubmit = e => {
+      e.preventDefault();
+      console.log('submit', value);
+
+      // const { title, tag } = state.selectedItem;
+      // if (title || tag) {
+      //    actions.editItem({
+      //       ...state.selectedItem,
+      //       ...value
+      //    });
+      // } else {
+      //    actions.addItem({
+      //       ...value,
+      //       id: uniqid()
+      //    });
+      // }
+
+      // setValue({ title: '', tag: '' });
+      // focusFirstInput();
+   };
 
    useEffect(() => {
       const { title, tag } = state.selectedItem;
@@ -35,26 +58,7 @@ const Form = () => {
    }, [state.selectedItem]);
 
    return (
-      <form
-         onSubmit={e => {
-            e.preventDefault();
-            const { title, tag } = state.selectedItem;
-            if (title || tag) {
-               actions.editItem({
-                  ...state.selectedItem,
-                  ...value
-               });
-            } else {
-               actions.addItem({
-                  ...value,
-                  id: uniqid()
-               });
-            }
-
-            setValue({ title: '', tag: '' });
-            focusFirstInput();
-         }}
-      >
+      <form onSubmit={handleSubmit}>
          <Grid container spacing={3} justify="center">
             <Grid item xs={4}>
                <TextField
@@ -67,7 +71,7 @@ const Form = () => {
                   ref={firstInput}
                />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
                <TextField
                   label="Tag"
                   name="tag"
@@ -76,7 +80,15 @@ const Form = () => {
                   autoComplete="off"
                   fullWidth
                />
+            </Grid> */}
+            <Grid item xs={3}>
+               <TagPicker
+                  name="tag"
+                  value={value.tag}
+                  onChange={handleChange}
+               />
             </Grid>
+
             <Grid item xs={12}>
                <Button
                   type="submit"
