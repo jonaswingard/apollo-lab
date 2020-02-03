@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { StoreContext } from './store/StoreContext';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -15,17 +15,9 @@ const TagPicker = ({ onChange, name }) => {
 
    const [stateName, setStateName] = useState([]);
 
-   const names = [
-      'Oliver Hansen',
-      'Van Henry',
-      'April Tucker',
-      'Ralph Hubbard',
-      'Omar Alexander',
-      'Carlos Abbott',
-      'Miriam Wagner',
-      'Bradley Wilkerson',
-      'Virginia Andrews',
-      'Kelly Snyder'
+   const names2 = [
+      { name: 'foo', id: 'foovalue' },
+      { name: 'bar', id: 'barvalue' }
    ];
 
    const handleChange = event => {
@@ -35,30 +27,32 @@ const TagPicker = ({ onChange, name }) => {
    return (
       <div>
          <FormControl>
-            <InputLabel htmlFor="select-multiple-checkbox">Tag</InputLabel>
+            <InputLabel htmlFor="select-multiple-checkbox">
+               Select tag
+            </InputLabel>
             <Select
                multiple
                value={stateName}
                onChange={handleChange}
                input={<Input id="select-multiple-checkbox" />}
-               renderValue={selected => selected.join(', ')}
+               renderValue={selected =>
+                  selected
+                     .map(
+                        value =>
+                           (names2.find(name => name.id === value) || {})
+                              .name || ''
+                     )
+                     .join(', ')
+               }
             >
-               {names.map(name => (
-                  <MenuItem key={name} value={name}>
-                     <Checkbox checked={stateName.indexOf(name) > -1} />
-                     <ListItemText primary={name} />
+               {names2.map(name => (
+                  <MenuItem key={name.id} value={name.id}>
+                     <Checkbox checked={stateName.indexOf(name.id) > -1} />
+                     <ListItemText primary={name.name} />
                   </MenuItem>
                ))}
             </Select>
          </FormControl>
-
-         {/* <select onChange={onChange} name={name} defaultValue={''}>
-            {tags.map((tag, index) => (
-               <option key={tag.id} value={tag.id} disabled={index === 0}>
-                  {tag.tag}
-               </option>
-            ))}
-         </select> */}
       </div>
    );
 };
