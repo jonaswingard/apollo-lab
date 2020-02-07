@@ -20,7 +20,7 @@ const Form = () => {
    const handleChange = e => {
       setValue({
          ...value,
-         [e.currentTarget.name]: e.currentTarget.value
+         [e.target.name]: e.target.value
       });
    };
 
@@ -35,10 +35,10 @@ const Form = () => {
       //       ...value
       //    });
       // } else {
-      //    actions.addItem({
-      //       ...value,
-      //       id: uniqid()
-      //    });
+      actions.addItem({
+         ...value,
+         id: uniqid()
+      });
       // }
 
       // setValue({ title: '', tag: '' });

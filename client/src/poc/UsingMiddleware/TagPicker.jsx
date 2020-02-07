@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { StoreContext } from './store/StoreContext';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -11,17 +11,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const TagPicker = ({ onChange, name }) => {
    const { state } = useContext(StoreContext);
-   const tags = [{ id: '', tag: 'Select tag' }, ...(state.tags || [])];
-
-   const [stateName, setStateName] = useState([]);
-
-   const names2 = [
-      { name: 'foo', id: 'foovalue' },
-      { name: 'bar', id: 'barvalue' }
-   ];
+   const tags = state.tags || [];
+   const [selectedTag, setSelectedTag] = useState([]);
 
    const handleChange = event => {
-      setStateName(event.target.value);
+      setSelectedTag(event.target.value);
+      onChange(event);
    };
 
    return (
@@ -32,23 +27,25 @@ const TagPicker = ({ onChange, name }) => {
             </InputLabel>
             <Select
                multiple
-               value={stateName}
+               value={selectedTag}
                onChange={handleChange}
                input={<Input id="select-multiple-checkbox" />}
+               style={{ minWidth: '10rem' }}
+               name={name}
                renderValue={selected =>
                   selected
                      .map(
                         value =>
-                           (names2.find(name => name.id === value) || {})
-                              .name || ''
+                           (tags.find(name => name.id === value) || {}).tag ||
+                           ''
                      )
                      .join(', ')
                }
             >
-               {names2.map(name => (
+               {tags.map(name => (
                   <MenuItem key={name.id} value={name.id}>
-                     <Checkbox checked={stateName.indexOf(name.id) > -1} />
-                     <ListItemText primary={name.name} />
+                     <Checkbox checked={selectedTag.indexOf(name.id) > -1} />
+                     <ListItemText primary={name.tag} />
                   </MenuItem>
                ))}
             </Select>
