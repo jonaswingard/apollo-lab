@@ -4,8 +4,11 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const prettyTagList = (tag = [], tags) =>
-   tag.map(tagId => tags.find(({ id }) => id === tagId)?.tag || 'tag removed');
+const PrettyTagList = ({ tag = [], tags = [] }) =>
+   tag
+      .map(tagId => tags.find(({ id }) => id === tagId)?.tag || 'tag removed')
+      .sort()
+      .join(', ');
 
 const Item = ({ item = '' }) => {
    const { actions, state } = useContext(StoreContext);
@@ -13,7 +16,13 @@ const Item = ({ item = '' }) => {
 
    return (
       <div>
-         {item.title} | {prettyTagList(item.tag, tags).join(', ')}
+         {item.title}
+         {item.tag.length > 0 && (
+            <span>
+               |
+               <PrettyTagList tag={item.tag} tags={tags} />
+            </span>
+         )}
          <Button
             color="secondary"
             aria-label="edit"

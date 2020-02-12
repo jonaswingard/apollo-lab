@@ -17,10 +17,22 @@ const List = () => {
    const { state } = useContext(StoreContext);
    const tags = state.tags || [];
 
+   const sortCompare = (a, b) => {
+      if (a.tag < b.tag) {
+         return -1;
+      }
+
+      if (a.tag > b.tag) {
+         return 1;
+      }
+
+      return 0;
+   };
+
    return (
       <div>
          <h3>Tags</h3>
-         {tags.map(tag => (
+         {tags.sort(sortCompare).map(tag => (
             <Item tag={tag} key={tag.id} />
          ))}
       </div>
