@@ -8,7 +8,7 @@ import TagPicker from './TagPicker';
 
 const Form = () => {
    const { actions, state } = useContext(StoreContext);
-   const [value, setValue] = useState({ title: '', tag: '' });
+   const [value, setValue] = useState({ title: '', tag: [] });
    const firstInput = useRef();
 
    const focusFirstInput = () => {
@@ -26,23 +26,22 @@ const Form = () => {
 
    const handleSubmit = e => {
       e.preventDefault();
-      console.log('submit', value);
 
-      // const { title, tag } = state.selectedItem;
-      // if (title || tag) {
-      //    actions.editItem({
-      //       ...state.selectedItem,
-      //       ...value
-      //    });
-      // } else {
-      actions.addItem({
-         ...value,
-         id: uniqid()
-      });
-      // }
+      const { title, tag } = state.selectedItem;
+      if (title || tag) {
+         actions.editItem({
+            ...state.selectedItem,
+            ...value
+         });
+      } else {
+         actions.addItem({
+            ...value,
+            id: uniqid()
+         });
+      }
 
-      // setValue({ title: '', tag: '' });
-      // focusFirstInput();
+      setValue({ title: '', tag: [] });
+      focusFirstInput();
    };
 
    useEffect(() => {
@@ -71,16 +70,6 @@ const Form = () => {
                   ref={firstInput}
                />
             </Grid>
-            {/* <Grid item xs={3}>
-               <TextField
-                  label="Tag"
-                  name="tag"
-                  value={value.tag}
-                  onChange={handleChange}
-                  autoComplete="off"
-                  fullWidth
-               />
-            </Grid> */}
             <Grid item xs={3}>
                <TagPicker
                   name="tag"

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 import { StoreContext } from './store/StoreContext';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -8,16 +8,26 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
+import { useEffect, useRef } from 'react';
 
-const TagPicker = ({ onChange, name }) => {
+const TagPicker = ({ onChange, name, value }) => {
    const { state } = useContext(StoreContext);
    const tags = state.tags || [];
-   const [selectedTag, setSelectedTag] = useState([]);
+   const [selectedTag, setSelectedTag] = useState(value);
 
    const handleChange = event => {
       setSelectedTag(event.target.value);
       onChange(event);
    };
+
+   const runEffect = useRef(false);
+   useEffect(() => {
+      if (runEffect) {
+         setSelectedTag(value);
+      } else {
+         runEffect.current = true;
+      }
+   }, [value]);
 
    return (
       <div>
