@@ -2,14 +2,14 @@ import React from 'react';
 import './App.css';
 // import DataComponent from './poc/DataComponent';
 // import FrontendComponent from './poc/FrontendComponent';
-import UsingMiddleware from './poc/UsingMiddleware/UsingMiddleware';
+import DataWrapper from './media/DataWrapper';
 
 function App() {
-  return (
-    <div className="App">
-      <UsingMiddleware />
-    </div>
-  );
+   return (
+      <div className="App">
+         <DataWrapper />
+      </div>
+   );
 }
 
 export default App;

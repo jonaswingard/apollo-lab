@@ -1,13 +1,13 @@
 import React from 'react';
 import { StoreProvider } from './store/StoreContext';
-import MainComponent from './MainComponent';
+import Main from './Main';
 
 // https://medium.com/front-end-weekly/writing-redux-like-simple-middleware-for-react-hooks-b163724a7058
 
-const UsingMiddleware = () => (
+const DataWrapper = () => (
    <StoreProvider>
-      <MainComponent />
+      <Main />
    </StoreProvider>
 );
 
-export default UsingMiddleware;
+export default DataWrapper;

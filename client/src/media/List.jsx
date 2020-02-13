@@ -53,9 +53,11 @@ const List = () => {
       <div>
          <h3>Items</h3>
          <table style={{ margin: '0 auto' }}>
-            {items.map(item => (
-               <Item item={item} key={item.id} />
-            ))}
+            <tbody>
+               {items.map(item => (
+                  <Item item={item} key={item.id} />
+               ))}
+            </tbody>
          </table>
       </div>
    );

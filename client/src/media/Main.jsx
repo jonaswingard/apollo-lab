@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Header from './Header';
 
-const MainComponent = () => {
+const Main = () => {
    return (
       <div>
          <Header />
@@ -35,4 +35,4 @@ const MainComponent = () => {
    );
 };
 
-export default MainComponent;
+export default Main;
