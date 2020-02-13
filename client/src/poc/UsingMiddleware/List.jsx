@@ -15,28 +15,33 @@ const Item = ({ item = '' }) => {
    const { tags } = state;
 
    return (
-      <div>
-         {item.title}
-         {item.tag.length > 0 && (
-            <span>
-               |
+      <tr>
+         <td style={{ textAlign: 'left', paddingRight: '2rem' }}>
+            {item.title}
+         </td>
+         <td style={{ textAlign: 'left', paddingRight: '2rem' }}>
+            {item.tag.length > 0 && (
                <PrettyTagList tag={item.tag} tags={tags} />
-            </span>
-         )}
-         <Button
-            color="secondary"
-            aria-label="edit"
-            onClick={() => actions.selectItem(item.id)}
-         >
-            <Icon>edit_icon</Icon>
-         </Button>
-         <Button
-            aria-label="delete"
-            onClick={() => actions.deleteItem(item.id)}
-         >
-            <DeleteIcon />
-         </Button>
-      </div>
+            )}
+         </td>
+         <td>
+            <Button
+               color="secondary"
+               aria-label="edit"
+               style={{ minWidth: '1rem' }}
+               onClick={() => actions.selectItem(item.id)}
+            >
+               <Icon>edit_icon</Icon>
+            </Button>
+            <Button
+               aria-label="delete"
+               style={{ minWidth: '1rem' }}
+               onClick={() => actions.deleteItem(item.id)}
+            >
+               <DeleteIcon />
+            </Button>
+         </td>
+      </tr>
    );
 };
 
@@ -47,9 +52,11 @@ const List = () => {
    return (
       <div>
          <h3>Items</h3>
-         {items.map(item => (
-            <Item item={item} key={item.id} />
-         ))}
+         <table style={{ margin: '0 auto' }}>
+            {items.map(item => (
+               <Item item={item} key={item.id} />
+            ))}
+         </table>
       </div>
    );
 };
