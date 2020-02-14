@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TagPicker from './TagPicker';
 
-const Form = () => {
+const MediaForm = () => {
    const { actions, state } = useContext(StoreContext);
    const [value, setValue] = useState({ title: '', tag: [] });
    const firstInput = useRef();
@@ -93,4 +93,4 @@ const Form = () => {
    );
 };
 
-export default Form;
+export default MediaForm;

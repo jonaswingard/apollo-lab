@@ -10,7 +10,7 @@ const PrettyTagList = ({ tag = [], tags = [] }) =>
       .sort()
       .join(', ');
 
-const Item = ({ item = '' }) => {
+const MediaItem = ({ item = '' }) => {
    const { actions, state } = useContext(StoreContext);
    const { tags } = state;
 
@@ -45,7 +45,7 @@ const Item = ({ item = '' }) => {
    );
 };
 
-const List = () => {
+const MediaList = () => {
    const { state } = useContext(StoreContext);
    const items = state.items || [];
 
@@ -55,7 +55,7 @@ const List = () => {
          <table style={{ margin: '0 auto' }}>
             <tbody>
                {items.map(item => (
-                  <Item item={item} key={item.id} />
+                  <MediaItem item={item} key={item.id} />
                ))}
             </tbody>
          </table>
@@ -63,4 +63,4 @@ const List = () => {
    );
 };
 
-export default List;
+export default MediaList;

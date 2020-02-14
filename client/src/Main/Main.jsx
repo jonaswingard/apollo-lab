@@ -1,33 +1,31 @@
 import React from 'react';
-import Form from './Form';
+import MediaForm from './MediaForm';
 import TagForm from './TagForm';
-import List from './List';
+import MediaList from './MediaList';
 import TagList from './TagList';
-import Debug from './Debug';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Header from './Header';
+import DataComponent from '../poc/DataComponent';
 
 const Main = () => {
    return (
       <div>
          <Header />
+         <DataComponent />
          <Container>
             <Grid container spacing={3} style={{ marginTop: '2rem' }}>
                <Grid item xs={12}>
-                  <List />
+                  <MediaList />
                </Grid>
                <Grid item xs={12}>
-                  <Form />
+                  <MediaForm />
                </Grid>
                <Grid item xs={12}>
                   <TagList />
                </Grid>
                <Grid item xs={12}>
                   <TagForm />
-               </Grid>
-               <Grid item xs={12}>
-                  <Debug />
                </Grid>
             </Grid>
          </Container>

@@ -1,32 +1,8 @@
 import { useMemo, useRef } from 'react';
+import { addFoobar } from '../db/foobar';
+import { loadItems, loadTags, saveTags } from '../db/local';
+
 import types from './types';
-
-const SETTINGS = {
-   KEY_ITEMS: 'items',
-   KEY_TAGS: 'tags'
-};
-
-const loadTags = () =>
-   JSON.parse(localStorage.getItem(SETTINGS.KEY_TAGS)) || [];
-
-const saveTags = tags => {
-   try {
-      localStorage.setItem(SETTINGS.KEY_TAGS, JSON.stringify(tags));
-   } catch (error) {
-      console.error('something went wrong', error);
-   }
-};
-
-const loadItems = () =>
-   JSON.parse(localStorage.getItem(SETTINGS.KEY_ITEMS)) || [];
-
-const saveItems = items => {
-   try {
-      localStorage.setItem(SETTINGS.KEY_ITEMS, JSON.stringify(items));
-   } catch (error) {
-      console.error('something went wrong', error);
-   }
-};
 
 export const useMiddleware = (state, dispatch) => {
    useMemo(() => {
@@ -44,7 +20,8 @@ export const useMiddleware = (state, dispatch) => {
          action.type === types.EDIT_ITEM ||
          action.type === types.CLEAR_ITEMS
       ) {
-         saveItems(state.items);
+         // saveItems(state.items);
+         addFoobar(action.payload.title);
       }
 
       if (
