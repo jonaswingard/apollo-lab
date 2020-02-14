@@ -22,7 +22,6 @@ class FoobarAPI extends DataSource {
     const foobars = await this.store.users.find({
       where: { email }
     });
-    console.log(foobars);
 
     return foobars && foobars[0] ? foobars[0] : null;
   }

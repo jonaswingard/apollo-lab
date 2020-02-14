@@ -12,6 +12,7 @@ const UserAPI = require("./datasources/user");
 const BitcoinAPI = require("./datasources/bitcoin");
 const MediaAPI = require("./datasources/media");
 const FoobarAPI = require("./datasources/foobar");
+const MyMediaAPI = require("./datasources/mymedia");
 
 const internalEngineDemo = require("./engine-demo");
 
@@ -24,7 +25,8 @@ const dataSources = () => ({
   userAPI: new UserAPI({ store }),
   bitcoinAPI: new BitcoinAPI(),
   mediaAPI: new MediaAPI(),
-  foobarAPI: new FoobarAPI({ store })
+  foobarAPI: new FoobarAPI({ store }),
+  myMediaAPI: new MyMediaAPI({ store })
 });
 
 // the function that sets up the global context for each resolver, using the req

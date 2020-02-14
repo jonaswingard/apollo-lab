@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 // import FrontendComponent from './poc/FrontendComponent';
-import DataWrapper from './main/DataWrapper';
+import DataWrapper from './Main/DataWrapper';
 
 function App() {
    return (

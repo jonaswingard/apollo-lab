@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const PrettyTagList = ({ tag = [], tags = [] }) =>
    tag
-      .map(tagId => tags.find(({ id }) => id === tagId)?.tag || 'tag removed')
+      .map(tagId => tags.find(({ id }) => id === tagId)?.title || 'tag removed')
       .sort()
       .join(', ');
 

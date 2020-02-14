@@ -76,5 +76,16 @@ module.exports.createStore = () => {
     foobar: SQL.STRING
   });
 
-  return { users, trips, foobars };
+  const tags = db.define("tags", {
+    id: {
+      type: SQL.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    createdAt: SQL.DATE,
+    updatedAt: SQL.DATE,
+    title: SQL.STRING
+  });
+
+  return { users, trips, foobars, tags };
 };

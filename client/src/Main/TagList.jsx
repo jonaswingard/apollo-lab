@@ -6,7 +6,9 @@ const TagItem = ({ tag = '' }) => {
 
    return (
       <tr>
-         <td style={{ textAlign: 'left', paddingRight: '2rem' }}>{tag.tag}</td>
+         <td style={{ textAlign: 'left', paddingRight: '2rem' }}>
+            {tag.title}
+         </td>
          <td>
             <button onClick={() => actions.selectTag(tag.id)}>edit</button>
             <button onClick={() => actions.deleteTag(tag.id)}>delete</button>
@@ -17,14 +19,14 @@ const TagItem = ({ tag = '' }) => {
 
 const TagList = () => {
    const { state } = useContext(StoreContext);
-   const tags = state.tags || [];
+   const tags = [...state.tags] || [];
 
    const sortCompare = (a, b) => {
-      if (a.tag < b.tag) {
+      if (a.title < b.title) {
          return -1;
       }
 
-      if (a.tag > b.tag) {
+      if (a.title > b.title) {
          return 1;
       }
 
@@ -36,8 +38,8 @@ const TagList = () => {
          <h3>Tags</h3>
          <table style={{ margin: '0 auto' }}>
             <tbody>
-               {tags.sort(sortCompare).map(tag => (
-                  <TagItem tag={tag} key={tag.id} />
+               {tags.sort(sortCompare).map(item => (
+                  <TagItem tag={item} key={item.id} />
                ))}
             </tbody>
          </table>

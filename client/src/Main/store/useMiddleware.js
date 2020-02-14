@@ -1,13 +1,16 @@
 import { useMemo, useRef } from 'react';
-import { addFoobar } from '../db/foobar';
-import { loadItems, loadTags, saveTags } from '../db/local';
+// import { addFoobar } from '../db/temp';
+import { loadTags, deleteTag } from '../db/tags';
+import { loadItems, saveTags } from '../db/local';
 
 import types from './types';
 
 export const useMiddleware = (state, dispatch) => {
    useMemo(() => {
+      loadTags().then(x =>
+         dispatch({ type: types.LOAD_TAGS, payload: x.tags })
+      );
       dispatch({ type: types.LOAD_ITEMS, payload: loadItems() });
-      dispatch({ type: types.LOAD_TAGS, payload: loadTags() });
    }, [dispatch]);
 
    const actionRef = useRef();
@@ -21,15 +24,15 @@ export const useMiddleware = (state, dispatch) => {
          action.type === types.CLEAR_ITEMS
       ) {
          // saveItems(state.items);
-         addFoobar(action.payload.title);
+         // addFoobar(action.payload.title);
       }
 
-      if (
-         action.type === types.ADD_TAG ||
-         action.type === types.DELETE_TAG ||
-         action.type === types.EDIT_TAG
-      ) {
+      if (action.type === types.ADD_TAG || action.type === types.EDIT_TAG) {
          saveTags(state.tags);
+      }
+
+      if (action.type === types.DELETE_TAG) {
+         deleteTag(action.payload);
       }
    }, [state]);
 

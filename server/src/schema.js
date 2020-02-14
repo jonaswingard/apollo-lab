@@ -7,6 +7,7 @@ const typeDefs = gql`
     bitcoin: Bitcoin
     trendingMovies: [Movie]!
     foobars: [Foobar]
+    tags: [Tag]
     users: [User]
     launches(
       """
@@ -25,18 +26,37 @@ const typeDefs = gql`
   type Mutation {
     # if false, signup failed -- check errors
     bookTrips(launchIds: [ID]!): TripUpdateResponse!
-
     # if false, cancellation failed -- check errors
     cancelTrip(launchId: ID!): TripUpdateResponse!
-
     login(email: String): String # login token
     createFoobar(foobar: String): String
+
+    createTag(title: String): TagCreateResponse!
+    upsertTag(tag: InputTag!): TagCreateResponse!
+    deleteTag(id: ID!): String
+  }
+
+  input InputTag {
+    id: ID!
+    title: String
   }
 
   type TripUpdateResponse {
     success: Boolean!
     message: String
     launches: [Launch]
+  }
+
+  type TagCreateResponse {
+    success: Boolean!
+    data: TagItem
+  }
+
+  type TagItem {
+    id: String
+    title: String
+    createdAt: Date
+    updatedAt: Date
   }
 
   """
@@ -91,13 +111,18 @@ const typeDefs = gql`
     media_type: String
   }
 
+  enum PatchSize {
+    SMALL
+    LARGE
+  }
+
   type Foobar {
     foobar: String
   }
 
-  enum PatchSize {
-    SMALL
-    LARGE
+  type Tag {
+    id: ID!
+    title: String
   }
 `;
 

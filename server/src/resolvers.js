@@ -12,6 +12,7 @@ module.exports = {
     },
     foobars: async (_, __, { dataSources }) =>
       dataSources.userAPI.getAllFoobars(),
+    tags: async (_, __, { dataSources }) => dataSources.myMediaAPI.getAllTags(),
     users: async (_, __, { dataSources }) => dataSources.userAPI.getAllUsers(),
     launches: async (_, { pageSize = 20, after }, { dataSources }) => {
       const allLaunches = await dataSources.launchAPI.getAllLaunches();
@@ -75,11 +76,29 @@ module.exports = {
     },
     login: async (_, { email }, { dataSources }) => {
       const user = await dataSources.userAPI.findOrCreateUser({ email });
-      if (user) return new Buffer(email).toString("base64");
+      // if (user) return new Buffer(email).toString("base64");
     },
     createFoobar: async (_, { foobar }, { dataSources }) => {
       const x = await dataSources.foobarAPI.createFoobar({ foobar });
-      if (x) return new Buffer(foobar).toString("base64");
+      // if (x) return new Buffer(foobar).toString("base64");
+    },
+    createTag: async (_, { title }, { dataSources }) => {
+      const createdTag = await dataSources.myMediaAPI.createTag({ title });
+      return {
+        success: !!createdTag.id,
+        data: createdTag
+      };
+    },
+    upsertTag: async (_, { tag }, { dataSources }) => {
+      const createdTag = await dataSources.myMediaAPI.upsertTag(tag);
+      return {
+        success: !!createdTag.id,
+        data: createdTag
+      };
+    },
+    deleteTag: async (_, { id }, { dataSources }) => {
+      const x = await dataSources.myMediaAPI.deleteTag({ id });
+      return x.length > 0;
     }
   },
   Launch: {

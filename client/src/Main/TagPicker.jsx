@@ -46,7 +46,7 @@ const TagPicker = ({ onChange, name, value }) => {
                   selected
                      .map(
                         value =>
-                           (tags.find(name => name.id === value) || {}).tag ||
+                           (tags.find(name => name.id === value) || {}).title ||
                            ''
                      )
                      .join(', ')
@@ -55,7 +55,7 @@ const TagPicker = ({ onChange, name, value }) => {
                {tags.map(name => (
                   <MenuItem key={name.id} value={name.id}>
                      <Checkbox checked={selectedTag.indexOf(name.id) > -1} />
-                     <ListItemText primary={name.tag} />
+                     <ListItemText primary={name.title} />
                   </MenuItem>
                ))}
             </Select>
