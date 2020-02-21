@@ -1,7 +1,6 @@
 import { useMemo, useRef } from 'react';
-// import { addFoobar } from '../db/temp';
-import { loadTags, deleteTag } from '../db/tags';
-import { loadItems, saveTags } from '../db/local';
+import { loadTags, deleteTag, upsertTag } from '../db/tags';
+import { loadItems } from '../db/local';
 
 import types from './types';
 
@@ -28,13 +27,13 @@ export const useMiddleware = (state, dispatch) => {
       }
 
       if (action.type === types.ADD_TAG || action.type === types.EDIT_TAG) {
-         saveTags(state.tags);
+         upsertTag(action.payload);
       }
 
       if (action.type === types.DELETE_TAG) {
          deleteTag(action.payload);
       }
-   }, [state]);
+   }, []);
 
    return action => {
       actionRef.current = action;

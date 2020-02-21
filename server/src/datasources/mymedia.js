@@ -19,9 +19,9 @@ class MyMediaAPI extends DataSource {
   }
 
   async upsertTag(tag) {
-    const x = { ...tag };
+    const modifiedTag = { ...tag };
 
-    const updatedTag = await this.store.tags.upsert(x);
+    const updatedTag = await this.store.tags.upsert(modifiedTag);
     return updatedTag && updatedTag.dataValues ? updatedTag.dataValues : null;
   }
 

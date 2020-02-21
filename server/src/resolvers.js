@@ -92,7 +92,8 @@ module.exports = {
     upsertTag: async (_, { tag }, { dataSources }) => {
       const createdTag = await dataSources.myMediaAPI.upsertTag(tag);
       return {
-        success: !!createdTag.id,
+        // success: !!createdTag.id,
+        success: true,
         data: createdTag
       };
     },

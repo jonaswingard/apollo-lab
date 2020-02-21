@@ -38,8 +38,8 @@ const TagList = () => {
          <h3>Tags</h3>
          <table style={{ margin: '0 auto' }}>
             <tbody>
-               {tags.sort(sortCompare).map(item => (
-                  <TagItem tag={item} key={item.id} />
+               {tags.sort(sortCompare).map((item, index) => (
+                  <TagItem tag={item} key={`tagitem_${index}`} />
                ))}
             </tbody>
          </table>

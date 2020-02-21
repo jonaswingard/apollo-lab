@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { StoreContext } from './store/StoreContext';
-import uniqid from 'uniqid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 const TagForm = () => {
    const { actions, state } = useContext(StoreContext);
-   const [value, setValue] = useState({ tag: '' });
+   const [value, setValue] = useState({ title: '' });
    const firstInput = useRef();
 
    const focusFirstInput = () => {
@@ -23,14 +22,14 @@ const TagForm = () => {
       });
 
    useEffect(() => {
-      const { tag } = state.selectedTag;
-      if (tag) {
-         setValue({ tag });
+      const { title } = state.selectedTag;
+      if (title) {
+         setValue({ title });
 
-         // TODO - this shouuld be handled in a better way
-         setTimeout(() => {
-            focusFirstInput();
-         });
+         // TODO - this should be handled in a better way
+         // setTimeout(() => {
+         //    focusFirstInput();
+         // });
       }
    }, [state.selectedTag]);
 
@@ -38,20 +37,19 @@ const TagForm = () => {
       <form
          onSubmit={e => {
             e.preventDefault();
-            const { tag } = state.selectedTag;
-            if (tag) {
+            const { title } = state.selectedTag;
+            if (title) {
                actions.editTag({
                   ...state.selectedTag,
                   ...value
                });
             } else {
                actions.addTag({
-                  ...value,
-                  id: uniqid()
+                  ...value
                });
             }
 
-            setValue({ tag: '' });
+            setValue({ title: '' });
             focusFirstInput();
          }}
       >
@@ -59,8 +57,8 @@ const TagForm = () => {
             <Grid item xs={4}>
                <TextField
                   label="Tag"
-                  name="tag"
-                  value={value.tag}
+                  name="title"
+                  value={value.title}
                   onChange={handleChange}
                   autoComplete="off"
                   fullWidth

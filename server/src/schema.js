@@ -37,8 +37,8 @@ const typeDefs = gql`
   }
 
   input InputTag {
-    id: ID!
-    title: String
+    id: ID
+    title: String!
   }
 
   type TripUpdateResponse {
@@ -121,7 +121,7 @@ const typeDefs = gql`
   }
 
   type Tag {
-    id: ID!
+    id: ID
     title: String
   }
 `;
